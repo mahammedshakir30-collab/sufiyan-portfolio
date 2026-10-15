@@ -1,0 +1,282 @@
+/* ==========================================================================
+   DESIGN SYSTEM & CSS TOKENS — SUFIYAN PORTFOLIO
+   Quiet gallery, editorial, generous whitespace, thin lines, no shadows, no gradients
+   ========================================================================== */
+
+:root {
+  /* Color Palette */
+  --bg: #0B0B0C;
+  --surface: #141416;
+  --surface-subtle: #1C1C1F;
+  --text: #EDEAE4;
+  --muted: #8C8A85;
+  --line: rgba(237, 234, 228, 0.12);
+  --line-light: rgba(237, 234, 228, 0.06);
+  --accent: #C9A66B; /* Warm Brass */
+  --accent-faint: rgba(201, 166, 107, 0.12);
+
+  /* Typography Stacks */
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "DM Mono", "SF Mono", "Courier New", monospace;
+
+  /* Layout & Spacing */
+  --max-width: 1440px;
+  --gutter-mobile: 24px;
+  --gutter-desktop: 48px;
+  --gutter: var(--gutter-mobile);
+
+  /* Fluid Spacing Scale */
+  --space-2xs: clamp(0.25rem, 0.5vw, 0.375rem);
+  --space-xs: clamp(0.5rem, 0.8vw, 0.75rem);
+  --space-sm: clamp(0.875rem, 1.2vw, 1.25rem);
+  --space-md: clamp(1.5rem, 2.5vw, 2.25rem);
+  --space-lg: clamp(2.5rem, 4vw, 4rem);
+  --space-xl: clamp(4rem, 6vw, 6.5rem);
+  --space-2xl: clamp(6rem, 10vw, 10rem);
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 0.25s;
+  --duration-normal: 0.6s;
+  --duration-slow: 1.0s;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: var(--gutter-desktop);
+  }
+}
+
+/* ==========================================================================
+   CSS RESET & BASE
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted) var(--bg);
+}
+
+/* Lenis Recommended CSS */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Accessible focus ring in accent colour */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--accent);
+  color: var(--bg);
+}
+
+/* Links and buttons */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--duration-fast) ease;
+}
+
+button {
+  background: none;
+  border: none;
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+img, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY
+   ========================================================================== */
+
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+.font-body {
+  font-family: var(--font-body);
+  font-size: clamp(0.9375rem, 1vw, 1rem);
+  line-height: 1.6;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .font-mono {
+    font-size: 12px;
+  }
+}
+
+/* Section titles */
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: var(--space-md);
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: var(--space-xs);
+}
+
+.section-label::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 1px;
+  background-color: var(--accent);
+}
+
+/* ==========================================================================
+   LAYOUT CONTAINERS & GRIDS
+   ========================================================================== */
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-md);
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--line);
+  border: none;
+}
+
+/* ==========================================================================
+   TONAL PLACEHOLDER (when image is missing)
+   ========================================================================== */
+
+.photo-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.photo-placeholder span {
+  display: block;
+  margin-top: 0.5rem;
+  opacity: 0.6;
+  font-size: 10px;
+}
+
+/* ==========================================================================
+   PREFERS-REDUCED-MOTION
+   Strict override to disable all animations, transforms, and transitions
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-clip,
+  .mask-line,
+  .hero-img-wrap img {
+    clip-path: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .custom-cursor {
+    display: none !important;
+  }
+}
